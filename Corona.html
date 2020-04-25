@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Describe How the Assignment Works</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>COVID-19 in Louisiana</h1>
+        <h2>Number of Confirmed Cases and Deaths</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Seamus Gleason</p>
+        <p>Data retrieved from Johns Hopkins Center for Systems Science and Engineering.
+        Data accurate as of April 20, 2020</p>
+    </footer>
+
+    <script src="corona.js"></script>
+    <script>
+
+      var map = L.map('map', {
+          center: [31,-91.1652],
+          zoom: 7,
+      }); // Here we are centering our map over the continential United States
+      
+      var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+          subdomains: 'abcd',
+          maxZoom: 19
+      });  // here we are choosing our basemap, one from openstreetmap.org, and setting our maxZoom to 19
+      
+      tiles.addTo(map);
+        
+    
+      L.geoJson(COVID, {
+          pointToLayer: function(feature,latlng) {
+              console.log(feature.properties)
+              return L.circleMarker(latlng, {
+                 color: 'green',
+                 weight: 1,
+                 fillColor: 'blue',
+                 fillOpacity: .75,
+                 radius: 10 //step4
+              });   
+          },
+          
+
+onEachFeature : function(feature,layer) {
+    layer.on('mouseover', function() {
+    layer.setStyle({
+        fillColor: 'blue'
+    });
+});
+layer.on('mouseout', function() {
+    layer.setStyle({
+        fillColor: 'blue'
+    });
+});
+
+
+          //step 6  
+    
+          var parish = feature.properties.Louisian_1
+          var cases = feature.properties.Louisian_7
+          var dead = feature.properties.Louisian_8
+                                                
+          
+          var popup = ("<b>"+parish+" Parish"+"</b><br>"
+                       +"Cases: "+cases+"<br>"
+                       +"Deaths: "+dead)
+                       layer.bindPopup(popup)
+          }
+          
+          
+      }).addTo(map);   
+          
+
+    </script>
+    
+</body>
+
+</html>
