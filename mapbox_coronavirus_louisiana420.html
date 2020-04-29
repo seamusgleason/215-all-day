@@ -55,8 +55,9 @@ p {
 
 #features {
   top: 0;
-  height: 110px;
+  height: 160px;
   margin-top: 20px;
+    opacity: 100;
   width: 250px;
 }
 
@@ -101,7 +102,9 @@ map.on('mousemove', function(e) {
   });
 
   if (corona.length > 0) {
-    document.getElementById('pd').innerHTML = '<h3><strong>' + corona[0].properties.Louisian_7 + '</strong> Total COVID-19 Cases</h3><p><strong><em>' + corona[0].properties.Louisian_8 + '</strong> Deaths</em></p>';
+    document.getElementById('pd').innerHTML = 
+    '<strong>'+corona[0].properties.Louisian_1+' Parish'+'</strong>'+
+        '<br><p><strong>'+corona[0].properties.Louisian_7 + '</strong> Total COVID-19 Cases</h3><p><strong>'+corona[0].properties.Louisian_8 + '</strong> Deaths</p>';
   } else {
     document.getElementById('pd').innerHTML = '<p>Hover over a parish</p>';
   }
@@ -127,7 +130,7 @@ for (i = 0; i < layers.length; i++) {
     
 map.getCanvas().style.cursor = 'default';
         
-map.fitBounds([[-94.963179, 33.632916], [-88.476126,28.439714]]);
+map.fitBounds([[-94.963179, 33.632916], [-87.476126,28.439714]]);
 
 });
 
