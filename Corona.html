@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Describe How the Assignment Works</title>
+    <title>Novel Coronavirus Cases in Louisiana as of April 20, 2020</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
@@ -80,11 +80,11 @@
       L.geoJson(COVID, {
           pointToLayer: function(feature,latlng) {
               console.log(feature.properties)
-              return L.circleMarker(latlng, {
+              return L.Marker(latlng, {
                  color: 'green',
                  weight: 1,
                  fillColor: 'blue',
-                 fillOpacity: .75,
+                 fillOpacity: .5,
                  radius: 10 //step4
               });   
           },
@@ -93,12 +93,12 @@
 onEachFeature : function(feature,layer) {
     layer.on('mouseover', function() {
     layer.setStyle({
-        fillColor: 'blue'
+        fillColor: '#ffffff'
     });
 });
 layer.on('mouseout', function() {
     layer.setStyle({
-        fillColor: 'blue'
+        fillColor: ''
     });
 });
 
